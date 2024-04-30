@@ -8,11 +8,12 @@
 /**
  * 
  */
-
+class AProjetCPPinitCharacter;
 UINTERFACE(MinimalAPI, Blueprintable)
-class UCPI_Interact : UInterface
+class UCPI_Interact : public UInterface
 {
 	GENERATED_BODY()
+	
 };
 
 class ICPI_Interact
@@ -21,16 +22,10 @@ class ICPI_Interact
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 
 public:
-	
-	virtual bool MyInterfaceFunction();
   
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent, Category=Interface)
-	bool MyImplementableFunction();
-  
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category=Interface)
-	FString MyNativeFunction();
-
-	FString GetInterfaceName();
+	//UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category=Interface)
+	UFUNCTION(BlueprintCallable,BlueprintNativeEvent)
+	bool Interraction(AProjetCPPinitCharacter *Character);
 	
 };
 

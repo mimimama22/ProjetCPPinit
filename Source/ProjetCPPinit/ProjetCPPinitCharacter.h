@@ -6,8 +6,9 @@
 #include "InputActionValue.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "ProjetCPPinitCharacter.generated.h"
 #include "CPI_Interface.h"
+#include "ProjetCPPinitCharacter.generated.h"
+
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -89,14 +90,12 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
-public:	
-	// Sets default values for this actor's properties
-	AMyInterfaceActor();
- 
-	// Interface function implementations
-	virtual bool MyInterfaceFunction() override;
- 
-	FString MyNativeFunction_Implementation() override;
+	/** Returns PhysicsHandle subobject **/
+	FORCEINLINE class UPhysicsHandleComponent* GetPhysicsHandle() const { return PhysicsHandle; }
+
+	
+	
+
 
 	
 };

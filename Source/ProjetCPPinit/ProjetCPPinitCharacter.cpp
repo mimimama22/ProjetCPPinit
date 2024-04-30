@@ -12,7 +12,7 @@
 #include "InputActionValue.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "PhysicsEngine/PhysicsHandleComponent.h"
-#include "Engine/StaticMeshActor.h"
+
 
 
 
@@ -90,6 +90,7 @@ void AProjetCPPinitCharacter::Tick(float DeltaSeconds)
 
 	if (PhysicsHandle->GetGrabbedComponent() != nullptr)
 	{
+		
 		PhysicsHandle->SetTargetLocation(GetActorLocation() + GetActorForwardVector() * 100);
 	}
 
@@ -114,6 +115,29 @@ void AProjetCPPinitCharacter::Tick(float DeltaSeconds)
 		}
 	}*/
 }
+
+/*bool AProjetCPPinitCharacter::Interraction(FHitResult HitTrace) 
+{
+	
+	//if physics handle is not attached
+	if (!PhysicsHandle->GrabbedComponent)
+	{
+		//attach physics handle
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Interaction"));
+		PhysicsHandle->GrabComponentAtLocation(HitTrace.GetActor()->FindComponentByClass<UStaticMeshComponent>(), NAME_None, HitTrace.ImpactPoint);
+	}
+	else
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("ungrab"));
+		//release physics handle
+		PhysicsHandle->ReleaseComponent();
+				
+	}
+
+	return true;
+	
+	
+}*/
 
 //////////////////////////////////////////////////////////////////////////
 // Input
@@ -192,27 +216,24 @@ void AProjetCPPinitCharacter::Interaction(const FInputActionValue& Value)
 	
 	if (HitTrace.bBlockingHit)
 	{
-		//cast to static mesh actor
-		if (AStaticMeshActor* HitMesh = Cast<AStaticMeshActor>(HitTrace.GetActor()))
+		
+		//apply the interface
+		
+			
+		//if physics handle is not attached/*
+		if (!PhysicsHandle->GrabbedComponent)
 		{
-			//if physics handle is not attached
-			if (!PhysicsHandle->GrabbedComponent)
-			{
-				//attach physics handle
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Interaction"));
-				PhysicsHandle->GrabComponentAtLocation(HitMesh->FindComponentByClass<UStaticMeshComponent>(), NAME_None, HitTrace.ImpactPoint);
-			}
-			else
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("ungrab"));
-				//release physics handle
-				PhysicsHandle->ReleaseComponent();
-				
-			}
+			ICPI_Interact::Execute_Interraction(HitTrace.GetActor(), this);
 		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("ungrab"));
+			//release physics handle
+			PhysicsHandle->ReleaseComponent();
+		}
+		
 	}
 	
 	
 	UE_LOG(LogTemp, Warning, TEXT("interaction"));
-	
 }

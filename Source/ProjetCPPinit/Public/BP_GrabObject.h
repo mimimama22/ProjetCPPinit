@@ -9,7 +9,7 @@
 
 
 
-UCLASS()
+UCLASS(BlueprintType)
 class PROJETCPPINIT_API ABP_GrabObject : public AActor , public ICPI_Interact
 {
 	GENERATED_BODY()
@@ -29,5 +29,13 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+
+	/** BlueprintCallable call blueprint BlueprintImplementableEvent implement in blueprint
+	 * BlueprintCallable implement C++ et blueprint*/
+	UFUNCTION(BlueprintCallable,BlueprintNativeEvent)
+	void test();
+
+	virtual bool Interraction_Implementation(AProjetCPPinitCharacter *Character ) override;
 
 };
