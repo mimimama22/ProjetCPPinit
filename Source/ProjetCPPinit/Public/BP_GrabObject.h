@@ -7,6 +7,7 @@
 #include "CPI_Interface.h"
 #include "BP_GrabObject.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTestVelocity);
 
 
 UCLASS(BlueprintType)
@@ -16,7 +17,8 @@ class PROJETCPPINIT_API ABP_GrabObject : public AActor , public ICPI_Interact
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Mesh, meta = (AllowPrivateAccess = "true"));
 	UStaticMeshComponent* Mesh;
-	
+
+
 	
 public:	
 	// Sets default values for this actor's properties
@@ -37,5 +39,11 @@ public:
 	void test();
 
 	virtual bool Interraction_Implementation(AProjetCPPinitCharacter *Character ) override;
+
+	UFUNCTION()
+	void TestCallDelegate(bool bIsGrabbing);
+
+	UPROPERTY(BlueprintAssignable,Blueprintable, Category = "Event");
+	FTestVelocity OnTestVelocityDelegate;
 
 };

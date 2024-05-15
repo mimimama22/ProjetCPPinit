@@ -91,7 +91,7 @@ void AProjetCPPinitCharacter::Tick(float DeltaSeconds)
 	if (PhysicsHandle->GetGrabbedComponent() != nullptr)
 	{
 		
-		PhysicsHandle->SetTargetLocation(GetActorLocation() + GetActorForwardVector() * 100);
+		PhysicsHandle->SetTargetLocation(GetActorLocation() + GetActorForwardVector() * 500);
 	}
 
 	
@@ -114,6 +114,15 @@ void AProjetCPPinitCharacter::Tick(float DeltaSeconds)
 			HitMesh->SetVectorParameterValueOnMaterials(FName("Base Color"), FVector(FVector(FMath::RandRange(0.0f, 1.0f), FMath::RandRange(0.0f, 1.0f), FMath::RandRange(0.0f, 1.0f))));
 		}
 	}*/
+}
+
+void AProjetCPPinitCharacter::TestCallDelegate()
+{
+
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, TEXT("TestCallDelegate"));
+
+	
+	
 }
 
 /*bool AProjetCPPinitCharacter::Interraction(FHitResult HitTrace) 
@@ -223,11 +232,14 @@ void AProjetCPPinitCharacter::Interaction(const FInputActionValue& Value)
 		//if physics handle is not attached/*
 		if (!PhysicsHandle->GrabbedComponent)
 		{
+			OnGrabObjectDelegate.Broadcast(true);
+			
 			ICPI_Interact::Execute_Interraction(HitTrace.GetActor(), this);
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("ungrab"));
+			OnGrabObjectDelegate.Broadcast(false);
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("ungrab"));
 			//release physics handle
 			PhysicsHandle->ReleaseComponent();
 		}

@@ -29,16 +29,26 @@ void ABP_GrabObject::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	AProjetCPPinitCharacter* Player = Cast<AProjetCPPinitCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+	
+	Player->OnGrabObjectDelegate.AddDynamic(this, &ABP_GrabObject::TestCallDelegate);
 }
+
 
 // Called every frame
 void ABP_GrabObject::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+	Super::Tick(DeltaTime);/*
 	if(Mesh->IsSimulatingPhysics())
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("true"));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("true"));
 	else
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("false"));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("false"));*/
+
+	if(GetVelocity().Length() > 100.0f)
+	{
+		OnTestVelocityDelegate.Broadcast();
+	}
+		
 
 }
 
@@ -53,7 +63,14 @@ bool ABP_GrabObject::Interraction_Implementation(AProjetCPPinitCharacter * Chara
 
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("Interraction"));
 	Character->GetPhysicsHandle()->GrabComponentAtLocation(Mesh, NAME_None, GetActorLocation());
+
+	OnTestVelocityDelegate.AddUniqueDynamic(Character, &AProjetCPPinitCharacter::TestCallDelegate);
 	
 	return true;
+}
+
+void ABP_GrabObject::TestCallDelegate(bool bIsGrabbing)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("TestCallDelegate %s"), bIsGrabbing);
 }
 

@@ -9,6 +9,7 @@
 #include "CPI_Interface.h"
 #include "ProjetCPPinitCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FONGrabObject, bool, bIsGrabbing);
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -59,9 +60,13 @@ class AProjetCPPinitCharacter : public ACharacter , public ICPI_Interact
 	UInputAction* InteractionAction;
 
 	
+	
 
 public:
 	AProjetCPPinitCharacter();
+
+	UPROPERTY(BlueprintAssignable, Category = "Event")
+	FONGrabObject OnGrabObjectDelegate;
 	
 
 protected:
@@ -93,6 +98,8 @@ public:
 	/** Returns PhysicsHandle subobject **/
 	FORCEINLINE class UPhysicsHandleComponent* GetPhysicsHandle() const { return PhysicsHandle; }
 
+	UFUNCTION()
+	void TestCallDelegate();
 	
 	
 
