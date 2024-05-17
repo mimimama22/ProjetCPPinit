@@ -17,11 +17,7 @@ ABP_GrabObject::ABP_GrabObject()
 	
 	//set the actor physics
 	Mesh->SetSimulatePhysics(true);
-	
-	
-	
-	
-	
+
 }
 
 // Called when the game starts or when spawned
@@ -38,11 +34,7 @@ void ABP_GrabObject::BeginPlay()
 // Called every frame
 void ABP_GrabObject::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);/*
-	if(Mesh->IsSimulatingPhysics())
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("true"));
-	else
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Red, TEXT("false"));*/
+	Super::Tick(DeltaTime);
 
 	if(GetVelocity().Length() > 100.0f)
 	{

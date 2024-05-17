@@ -2,8 +2,10 @@
 
 
 #include "Trigger.h"
-
+#include "Door.h"
 #include "Components/BoxComponent.h"
+
+
 
 
 // Sets default values
@@ -17,6 +19,7 @@ ATrigger::ATrigger()
 	SetRootComponent(mesh);
 	//create overlap event
 	mesh->OnComponentBeginOverlap.AddDynamic(this, &ATrigger::OnOverlapBegin);
+	mesh->OnComponentEndOverlap.AddDynamic(this, &ATrigger::OnOverlapEnd);
 	
 }
 
@@ -34,3 +37,22 @@ void ATrigger::Tick(float DeltaTime)
 
 }
 
+void ATrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Overlap Begin"));
+	if(DoorRef)
+	{
+		DoorRef->OpenDoor();
+	}
+}
+
+void ATrigger::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Overlap End"));
+	if(DoorRef)
+	{
+		DoorRef->CloseDoor();
+	}
+}

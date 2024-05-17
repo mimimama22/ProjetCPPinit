@@ -234,7 +234,7 @@ void AProjetCPPinitCharacter::Interaction(const FInputActionValue& Value)
 		{
 			OnGrabObjectDelegate.Broadcast(true);
 			
-			ICPI_Interact::Execute_Interraction(HitTrace.GetActor(), this);
+			//ICPI_Interact::Execute_Interraction(HitTrace.GetActor(), this);
 		}
 		else
 		{

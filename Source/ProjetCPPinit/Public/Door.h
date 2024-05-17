@@ -19,10 +19,19 @@ class PROJETCPPINIT_API ADoor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ADoor();
+	UFUNCTION(Blueprintable, BlueprintNativeEvent, Category = Function)
+	void OpenDoor();
 
+	UFUNCTION(Blueprintable, BlueprintNativeEvent, Category = Function)
+	void CloseDoor();
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	
+	
+
 
 public:	
 	// Called every frame
