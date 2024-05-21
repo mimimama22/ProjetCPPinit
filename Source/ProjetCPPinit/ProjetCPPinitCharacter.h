@@ -16,7 +16,7 @@ class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
 class UPhysicsHandleComponent;
-
+class ADoor;
 
 struct FInputActionValue;
 
@@ -59,6 +59,8 @@ class AProjetCPPinitCharacter : public ACharacter , public ICPI_Interact
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* InteractionAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* DoorAction;
 	
 	
 
@@ -67,6 +69,8 @@ public:
 
 	UPROPERTY(BlueprintAssignable, Category = "Event")
 	FONGrabObject OnGrabObjectDelegate;
+
+	ADoor* DoorRef;
 	
 
 protected:
@@ -81,6 +85,8 @@ protected:
 	void Interaction(const FInputActionValue& Value);
 
 protected:
+	
+	void OpenDoor();
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	

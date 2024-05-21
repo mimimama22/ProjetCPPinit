@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "ProjetCPPinitCharacter.h"
+
+#include "Door.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -168,6 +170,8 @@ void AProjetCPPinitCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
 
 		// Interaction
 		EnhancedInputComponent->BindAction(InteractionAction, ETriggerEvent::Started, this, &AProjetCPPinitCharacter::Interaction);
+
+		EnhancedInputComponent->BindAction(DoorAction, ETriggerEvent::Started, this, &AProjetCPPinitCharacter::OpenDoor);
 		
 	}
 	else
@@ -248,4 +252,12 @@ void AProjetCPPinitCharacter::Interaction(const FInputActionValue& Value)
 	
 	
 	UE_LOG(LogTemp, Warning, TEXT("interaction"));
+}
+
+void AProjetCPPinitCharacter::OpenDoor()
+{
+	if (DoorRef)
+	{
+		DoorRef->OpenDoor();
+	}
 }

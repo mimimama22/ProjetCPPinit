@@ -4,8 +4,7 @@
 #include "Trigger.h"
 #include "Door.h"
 #include "Components/BoxComponent.h"
-
-
+#include "ProjetCPPinit/ProjetCPPinitCharacter.h"
 
 
 // Sets default values
@@ -41,10 +40,11 @@ void ATrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* Other
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, TEXT("Overlap Begin"));
-	if(DoorRef)
-	{
-		DoorRef->OpenDoor();
-	}
+	
+    if(AProjetCPPinitCharacter* Player = Cast<AProjetCPPinitCharacter>(OtherActor))
+    {
+		Player->DoorRef = DoorRef;
+    }
 }
 
 void ATrigger::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
